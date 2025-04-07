@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class MakeCollectionCommand extends GeneratorCommand
 {
-    protected $signature = 'make:collection';
+    protected $signature = 'make:collection {name}';
 
     protected $description = 'Create a new custom Eloquent Collection class';
     
