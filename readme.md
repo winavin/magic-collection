@@ -50,12 +50,94 @@ But if you want to manually set it, you can do that in your model:
 ```php
 class User extends Model
 {
-  ...
+...
     protected function useCollection(): string
     {
         return MyCustomUserCollection::class;
     }
 ```
+
+Absolutely! Here's a **"Known Errors"** section in proper Markdown format for your `README.md`, including clear steps to resolve trait method collisions (like the one with `newCollection()`):
+
+---
+
+## 🐞 Known Errors
+
+### ❌ Trait method collision: `newCollection()`
+
+You may see this error if you're using another trait or package (like `HasRecursiveRelationships`) that also defines a `newCollection()` method:
+
+```
+Trait method Winavin\MagicCollection\Traits\UsesMagicCollections::newCollection has not been applied as App\Models\YourModel::newCollection, because of collision with Other Trait's newCollection method.
+```
+
+---
+
+### ✅ How to Fix It
+
+If your model needs to use both `MagicCollection` and another custom collection (like one from another package), follow these steps:
+
+---
+
+#### 1. Generate a Custom Collection
+
+```bash
+php artisan make:collection YourModelCollection
+```
+
+This creates `App\Collections\YourModelCollection`.
+
+---
+
+#### 2. Change the Collection's Base Class
+
+In your new collection file, replace:
+
+```php
+use Winavin\MagicCollection\Collections\BaseCollection;
+
+class YourModelCollection extends BaseCollection
+```
+
+**with the class from the conflicting package**, for example:
+
+```php
+use Staudenmeir\LaravelAdjacencyList\Eloquent\Collection as AdjacencyCollection;
+use Winavin\MagicCollection\Collections\Trait\BaseCollectionTrait;
+
+class YourModelCollection extends AdjacencyCollection
+{
+    use BaseCollectionTrait;
+
+    // MagicCollection features + AdjacencyCollection features
+}
+```
+
+---
+
+#### 3. Define `newCollection()` in Your Model
+
+In your model (e.g., `App\Models\YourModel`), override the method:
+
+```php
+public function newCollection(array $models = [])
+{
+    return new \App\Collections\YourModelCollection($models);
+}
+```
+
+This tells Laravel to use your custom collection with both features.
+
+---
+
+### 🧠 Notes
+
+- If you don’t need both, you can just prefer one trait using `insteadof`.
+- This solution gives you full control while keeping both functionalities working together.
+
+---
+
+Let me know if you want this to be a separate `docs/errors.md` or included inline in your README!
 
 ## Change log
 
