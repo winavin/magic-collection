@@ -1,0 +1,10 @@
+<?php
+
+namespace {{ namespace }};
+
+use Winavin\Collections\BaseCollection;
+
+class {{ class }} extends BaseCollection
+{
+    // You can override or add methods here
+}
