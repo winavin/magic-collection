@@ -1,12 +1,23 @@
-# MagicCollection
+# Magic Collection for Laravel
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Build Status][ico-travis]][link-travis]
 [![StyleCI][ico-styleci]][link-styleci]
 
-This is where your description should go. Take a look at [contributing.md](contributing.md) to see a to do list.
+**Magic Collection** adds powerful features to Laravel Eloquent collections.  
+It lets you call relationships directly on a collection of models, and includes an Artisan command to generate custom collection classes.
 
+## ✨ Features
+
+- Call relationships on a collection of models:  
+  Example: `$users->blogs` (where $user is a collection)
+- Automatically merges related results using `flatMap`
+- Safe handling of empty collections
+- Define custom collection classes per model
+- Artisan command to generate collections: `php artisan make:collection`
+
+---
 ## Installation
 
 Via Composer
@@ -17,28 +28,38 @@ composer require winavin/magic-collection
 
 ## Usage
 
+1. **Use the Trait on your models**
+```php
+use Winavin\Collections\UsesMagicCollections;
+
+class User extends Model
+{
+    use UsesMagicCollections;
+}
+```
+2. **(Optional) Create a custom collection for a model**
+
+```php artisan make:collection```
+
+This command creates a collection class in the App\Collections folder.
+It will automatically extend the base collection and follow naming rules.
+
+If the collection name matches your model name and path (like UserCollection for User Model), it will be used automatically.
+
+But if you want to manually set it, you can do that in your model:
+```php
+class User extends Model
+{
+  ...
+    protected function useCollection(): string
+    {
+        return MyCustomUserCollection::class;
+    }
+```
+
 ## Change log
 
 Please see the [changelog](changelog.md) for more information on what has changed recently.
-
-## Testing
-
-```bash
-composer test
-```
-
-## Contributing
-
-Please see [contributing.md](contributing.md) for details and a todolist.
-
-## Security
-
-If you discover any security related issues, please email author@email.com instead of using the issue tracker.
-
-## Credits
-
-- [Author Name][link-author]
-- [All Contributors][link-contributors]
 
 ## License
 

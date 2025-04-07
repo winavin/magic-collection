@@ -1,27 +1,73 @@
-# Contributing
+# Contributing to Magic Collection
 
-Contributions are welcome and will be fully credited.
+Thank you for considering contributing to the **Magic Collection** package! 🎉  
+We welcome pull requests, bug reports, feature suggestions, and improvements.
 
-Contributions are accepted via Pull Requests on [Github](https://github.com/winavin/magic-collection).
+---
 
-# Things you could do
-If you want to contribute but do not know where to start, this list provides some starting points.
-- Add license text
-- Remove rewriteRules.php
-- Set up TravisCI, StyleCI, ScrutinizerCI
-- Write a comprehensive ReadMe
+## 🛠 Getting Started
 
-## Pull Requests
+1. **Clone the repository**
 
-- **Add tests!** - Your patch won't be accepted if it doesn't have tests.
+   ```bash
+   git clone https://github.com/winavin/magic-collection.git
+   cd magic-collection
+   ```
 
-- **Document any change in behaviour** - Make sure the `readme.md` and any other relevant documentation are kept up-to-date.
+2. **Install dependencies**
 
-- **Consider our release cycle** - We try to follow [SemVer v2.0.0](http://semver.org/). Randomly breaking public APIs is not an option.
+   ```bash
+   composer install
+   ```
 
-- **One pull request per feature** - If you want to do more than one thing, send multiple pull requests.
+3. **Run tests (if available)**
 
-- **Send coherent history** - Make sure each individual commit in your pull request is meaningful. If you had to make multiple intermediate commits while developing, please [squash them](http://www.git-scm.com/book/en/v2/Git-Tools-Rewriting-History#Changing-Multiple-Commit-Messages) before submitting.
+   ```bash
+   ./vendor/bin/phpunit
+   ```
 
+---
 
-**Happy coding**!
+## ✍️ Code Guidelines
+
+- Follow **PSR-12** coding standards.
+- Use **descriptive commit messages**.
+- Keep pull requests focused on a single topic.
+- Add **tests** for new features or bug fixes when possible.
+- Document any **public APIs** or changes to existing behavior.
+
+---
+
+## 🚀 How to Contribute
+
+1. **Fork** the repository and create a new branch:
+
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+2. **Make your changes** and commit them:
+
+   ```bash
+   git commit -m "Add: short description of your change"
+   ```
+
+3. **Push to your fork** and open a **pull request** to the `main` branch:
+
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+
+---
+
+## 🙏 Thanks
+
+Your contributions help make this package better for everyone.  
+If you find it useful, consider ⭐ starring the project on GitHub!
+
+Happy coding! ⚡
+```
+
+---
+
+Let me know if you want to include code linting commands or GitHub Actions setup for test automation!
