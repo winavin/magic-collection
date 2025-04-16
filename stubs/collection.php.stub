@@ -2,7 +2,7 @@
 
 namespace {{ namespace }};
 
-use Winavin\MagicCollection\Collections\BaseCollection
+use Winavin\MagicCollection\Collections\BaseCollection;
 
 class {{ class }} extends BaseCollection
 {

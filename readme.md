@@ -6,7 +6,7 @@
 [![StyleCI][ico-styleci]][link-styleci]
 
 **Magic Collection** adds powerful features to Laravel Eloquent collections.  
-It lets you call relationships directly on a collection of models, and includes an Artisan command to generate custom collection classes.
+It lets you call model relationships directly on a collection of models, and includes an Artisan command to generate custom collection classes.
 
 ## ✨ Features
 
@@ -17,7 +17,30 @@ It lets you call relationships directly on a collection of models, and includes 
 - Define custom collection classes per model
 - Artisan command to generate collections: `php artisan make:collection`
 
----
+## Uses
+
+Insted of doing something like below:
+
+In below example, We considerd that ```User``` model has ```blogs``` ralationship method defined.
+```php
+$users = User::get();
+$blogs = collect();
+
+foreach($users as $user)
+{
+    $blogs = $blogs->concat($user->blogs);
+}
+```
+OR
+
+```php
+$blogs = User::get()->flatMap(fn ($user) => $user->blogs ?? []);
+```
+
+now you can do this directly on ```$users```
+```php
+$blogs = User::get()->blogs();
+```
 ## Installation
 
 Via Composer
@@ -42,18 +65,18 @@ class User extends Model
 ```php artisan make:collection```
 
 This command creates a collection class in the App\Collections folder.
-It will automatically extend the base collection and follow naming rules.
 
-If the collection name matches your model name and path (like UserCollection for User Model), it will be used automatically.
+If the collection name matches your model name and path (like YourModelCollection for YourModel Model), it will be used automatically.
 
-But if you want to manually set it, you can do that in your model:
+You can set any other Collection::class name in your model:
+
 ```php
-class User extends Model
+class YourModel extends Model
 {
-...
+    
     protected function useCollection(): string
     {
-        return MyCustomUserCollection::class;
+        return \App\Collections\CustomYourModelCollection::class;
     }
 ```
 
@@ -101,43 +124,42 @@ class YourModelCollection extends BaseCollection
 
 **with the class from the conflicting package**, for example:
 
-```php
-use Staudenmeir\LaravelAdjacencyList\Eloquent\Collection as AdjacencyCollection;
-use Winavin\MagicCollection\Collections\Trait\BaseCollectionTrait;
+```diff
+- use Winavin\MagicCollection\Collections\BaseCollection;
++ use Staudenmeir\LaravelAdjacencyList\Eloquent\Collection as AdjacencyCollection;
++ use Winavin\MagicCollection\Collections\Trait\BaseCollectionTrait;
 
-class YourModelCollection extends AdjacencyCollection
+- class YourModelCollection extends BaseCollection
++ class YourModelCollection extends AdjacencyCollection
 {
-    use BaseCollectionTrait;
++    use BaseCollectionTrait;
 
     // MagicCollection features + AdjacencyCollection features
 }
 ```
-
 ---
 
-#### 3. Define `newCollection()` in Your Model
+#### 3. Define `newCollection()` in Your Model and remove Trait
 
 In your model (e.g., `App\Models\YourModel`), override the method:
 
-```php
-public function newCollection(array $models = [])
+```diff
+- use Winavin\Collections\UsesMagicCollections;
+
+class YourModel extends Model
 {
-    return new \App\Collections\YourModelCollection($models);
+-    use UsesMagicCollections;
+
++    public function newCollection(array $models = [])
++    {
++       return new \App\Collections\YourModelCollection($models);
++    }
 }
 ```
 
-This tells Laravel to use your custom collection with both features.
+This will use your custom collection with both features.
 
 ---
-
-### 🧠 Notes
-
-- If you don’t need both, you can just prefer one trait using `insteadof`.
-- This solution gives you full control while keeping both functionalities working together.
-
----
-
-Let me know if you want this to be a separate `docs/errors.md` or included inline in your README!
 
 ## Change log
 
