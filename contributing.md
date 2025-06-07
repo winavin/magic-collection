@@ -66,6 +66,7 @@ Your contributions help make this package better for everyone.
 If you find it useful, consider ⭐ starring the project on GitHub!
 
 Happy coding! ⚡
+
 ```
 
 ---

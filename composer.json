@@ -10,7 +10,12 @@
         }
     ],
     "homepage": "https://github.com/winavin/magic-collection",
-    "keywords": ["Laravel", "MagicCollection", "Laravel Magic Collection", "Magic Collection"],
+    "keywords": [
+        "Laravel",
+        "MagicCollection",
+        "Laravel Magic Collection",
+        "Magic Collection"
+    ],
     "require": {
         "laravel/framework": "^10.0|^11.0|^12.0"
     },

@@ -6,7 +6,8 @@
 [![StyleCI][ico-styleci]][link-styleci]
 
 **Magic Collection** adds powerful features to Laravel Eloquent collections.  
-It lets you call model relationships directly on a collection of models, and includes an Artisan command to generate custom collection classes.
+It lets you call model relationships directly on a collection of models, and includes an Artisan command to generate
+custom collection classes.
 
 ## ✨ Features
 
@@ -22,6 +23,7 @@ It lets you call model relationships directly on a collection of models, and inc
 Insted of doing something like below:
 
 In below example, We considerd that ```User``` model has ```blogs``` ralationship method defined.
+
 ```php
 $users = User::get();
 $blogs = collect();
@@ -31,6 +33,7 @@ foreach($users as $user)
     $blogs = $blogs->concat($user->blogs);
 }
 ```
+
 OR
 
 ```php
@@ -38,9 +41,11 @@ $blogs = User::get()->flatMap(fn ($user) => $user->blogs ?? []);
 ```
 
 now you can do this directly on ```$users```
+
 ```php
 $blogs = User::get()->blogs();
 ```
+
 ## Installation
 
 Via Composer
@@ -52,6 +57,7 @@ composer require winavin/magic-collection
 ## Usage
 
 1. **Use the Trait on your models**
+
 ```php
 use Winavin\Collections\UsesMagicCollections;
 
@@ -60,13 +66,15 @@ class User extends Model
     use UsesMagicCollections;
 }
 ```
+
 2. **(Optional) Create a custom collection for a model**
 
 ```php artisan make:collection```
 
 This command creates a collection class in the App\Collections folder.
 
-If the collection name matches your model name and path (like YourModelCollection for YourModel Model), it will be used automatically.
+If the collection name matches your model name and path (like YourModelCollection for YourModel Model), it will be used
+automatically.
 
 You can set any other Collection::class name in your model:
 
@@ -80,7 +88,8 @@ class YourModel extends Model
     }
 ```
 
-Absolutely! Here's a **"Known Errors"** section in proper Markdown format for your `README.md`, including clear steps to resolve trait method collisions (like the one with `newCollection()`):
+Absolutely! Here's a **"Known Errors"** section in proper Markdown format for your `README.md`, including clear steps to
+resolve trait method collisions (like the one with `newCollection()`):
 
 ---
 
@@ -88,7 +97,8 @@ Absolutely! Here's a **"Known Errors"** section in proper Markdown format for yo
 
 ### ❌ Trait method collision: `newCollection()`
 
-You may see this error if you're using another trait or package (like `HasRecursiveRelationships`) that also defines a `newCollection()` method:
+You may see this error if you're using another trait or package (like `HasRecursiveRelationships`) that also defines a
+`newCollection()` method:
 
 ```
 Trait method Winavin\MagicCollection\Traits\UsesMagicCollections::newCollection has not been applied as App\Models\YourModel::newCollection, because of collision with Other Trait's newCollection method.
@@ -98,7 +108,8 @@ Trait method Winavin\MagicCollection\Traits\UsesMagicCollections::newCollection 
 
 ### ✅ How to Fix It
 
-If your model needs to use both `MagicCollection` and another custom collection (like one from another package), follow these steps:
+If your model needs to use both `MagicCollection` and another custom collection (like one from another package), follow
+these steps:
 
 ---
 
@@ -137,6 +148,7 @@ class YourModelCollection extends BaseCollection
     // MagicCollection features + AdjacencyCollection features
 }
 ```
+
 ---
 
 #### 3. Define `newCollection()` in Your Model and remove Trait
@@ -170,13 +182,21 @@ Please see the [changelog](changelog.md) for more information on what has change
 MIT. Please see the [license file](license.md) for more information.
 
 [ico-version]: https://img.shields.io/packagist/v/winavin/magic-collection.svg?style=flat-square
+
 [ico-downloads]: https://img.shields.io/packagist/dt/winavin/magic-collection.svg?style=flat-square
+
 [ico-travis]: https://img.shields.io/travis/winavin/magic-collection/master.svg?style=flat-square
+
 [ico-styleci]: https://styleci.io/repos/12345678/shield
 
 [link-packagist]: https://packagist.org/packages/winavin/magic-collection
+
 [link-downloads]: https://packagist.org/packages/winavin/magic-collection
+
 [link-travis]: https://travis-ci.org/winavin/magic-collection
+
 [link-styleci]: https://styleci.io/repos/12345678
+
 [link-author]: https://github.com/winavin
+
 [link-contributors]: ../../contributors

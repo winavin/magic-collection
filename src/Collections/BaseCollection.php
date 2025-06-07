@@ -1,5 +1,5 @@
 <?php
-  
+
 namespace Winavin\MagicCollection\Collections;
 
 use Illuminate\Database\Eloquent\Collection;
