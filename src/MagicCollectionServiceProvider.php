@@ -3,6 +3,7 @@
 namespace Winavin\MagicCollection;
 
 use Illuminate\Support\ServiceProvider;
+use Winavin\MagicCollection\Commands\MakeCollectionCommand;
 
 class MagicCollectionServiceProvider extends ServiceProvider
 {
@@ -43,7 +44,7 @@ class MagicCollectionServiceProvider extends ServiceProvider
 
         // Registering package commands.
         $this->commands( [
-                             \Winavin\MagicCollection\Commands\MakeCollectionCommand::class,
+                             MakeCollectionCommand::class,
                          ] );
     }
 }
